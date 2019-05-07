@@ -1,0 +1,4 @@
+b-modal#modal-remove-episode(title='Remove episode', ok-title='Remove', ok-variant='danger')
+	div(v-cloak, v-if='editEpisode != null')
+		p Are you sure you want to remove '{{ editEpisode.title }}'?
+		p This action <b>cannot be undone</b>!

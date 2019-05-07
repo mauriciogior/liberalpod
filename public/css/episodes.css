@@ -13,14 +13,6 @@ ul.video-list li {
     cursor: pointer;
 }
 
-ul.video-list li:first-child {
-	padding-left: 0px;
-}
-
-ul.video-list li:last-child {
-	padding-right: 0px;
-}
-
 ul.video-list li img {
     width: 200px;
     border-radius: 5px;
@@ -44,4 +36,26 @@ ul.video-list li p {
     margin: 0;
     padding: 5px 10px;
     border-radius: 0 0 5px 5px;
+}
+
+ul.video-list li:first-child {
+    padding-left: 0px;
+}
+
+ul.video-list li:first-child p {
+    width: calc(100% - 18px);
+    left: 4px;
+}
+
+ul.video-list li:last-child {
+    padding-right: 0px;
+}
+
+ul.video-list li:last-child p {
+    width: calc(100% - 18px);
+}
+
+ul.video-list li:first-child:last-child p {
+    width: calc(100% - 8px);
+    left: 4px;
 }

@@ -1,7 +1,7 @@
-b-modal#modal-add-yt(title='Add from YouTube', ok-title='Add episode')
+b-modal#modal-add-yt(title='Add from YouTube', size="lg", ok-title='Add episode')
 	.loader(v-if='loading.ytModal', v-cloak)
 		span.fas.fa-circle-notch.fa-spin
-		| Loading videos
+		span Loading videos
 
 	ul.video-list(v-else)
 		li(v-for='(_ytVideo, index) in ytVideos', @click='ytVideo = _ytVideo')

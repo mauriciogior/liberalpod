@@ -1,4 +1,4 @@
-b-modal#modal-add-file(title='Upload file', v-cloak, ok-title='Add episode', @ok='submitFile')
+b-modal#modal-add-file(title='Upload file', v-cloak, ok-title='Add episode', size="lg", @ok='submitFile')
 	b-form
 		b-form-group(label='File:', description='Only .mp3 files are allowed. Max size of 200mb.')
 			b-form-file(v-model='episode.file', :state='Boolean(episode.file)', placeholder='Choose a file...', drop-placeholder='Drop file here...', accept='.mp3')

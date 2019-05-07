@@ -18,3 +18,7 @@
 [v-cloak] {
 	display: none;
 }
+
+span.fas + span {
+	margin-left: 5px;
+}

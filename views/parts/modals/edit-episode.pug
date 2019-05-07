@@ -1,0 +1,21 @@
+b-modal#modal-edit-episode(title='Edit episode', size='lg', ok-title='Save', no-stacking)
+	div(v-cloak, v-if='editEpisode != null')
+		.loader(v-if='loading.editEpisodeModal && editEpisode.source == "yt"')
+			span.fas.fa-circle-notch.fa-spin
+			span Loading video
+
+		ul.video-list(v-else-if='editEpisode.source == "yt"')
+			li
+				img.active(v-if='ytVideo.thumbnail', :src='ytVideo.thumbnail.url')
+				p(v-text='ytVideo.title')
+		b-form
+			b-form-group(label='Video ID:', label-for='yt-form-video-id', v-if='editEpisode.source == "yt"')
+				b-form-input#yt-form-video-id(v-model='editEpisode.fileId', type='text', placeholder, required, disabled)
+			b-form-group(label='Date:', label-for='yt-form-date', description='Your episodes are ordered based on this field.')
+				date-picker(v-model='editEpisode.date', :config='{ format: \'DD/MM/YYYY HH:mm\' }')
+			b-form-group(label='Title:', label-for='yt-form-title')
+				b-form-input#yt-form-title(v-model='editEpisode.title', type='text', placeholder='Type here', required)
+			b-form-group(label='Description:', label-for='yt-form-description')
+				b-form-textarea#yt-form-description(v-model='editEpisode.description', placeholder='Type here', rows='3', max-rows='6')
+			b-form-group(label='Actions:')
+				b-button(variant='outline-danger', v-b-modal.modal-remove-episode) Remove

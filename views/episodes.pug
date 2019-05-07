@@ -26,7 +26,7 @@ block content
 								b-button.dropdown-item.btn.btn-primary(v-b-modal.modal-add-file) Upload file
 					.loader(v-if='loading.episodes')
 						span.fas.fa-circle-notch.fa-spin
-						| Loading episodes
+						span Loading episodes
 
 					.table-responsive(v-else)
 						table.table.table-striped.table-sm
@@ -34,13 +34,20 @@ block content
 								tr
 									th Title
 									th Date
+									th
 							tbody
 								tr(v-for='episode in episodes')
-									td(v-text='episode.title')
-									td(v-text='episode.date')
+									td {{ episode.title }}
+									td {{ episode.date | moment('DD/MM/YYYY HH:mm') }}
+									td
+										b-button(variant='primary', size='sm', v-b-modal.modal-edit-episode, @click='setEditEpisode(episode)')
+											span.fas.fa-edit
+											span Edit
 
 			include parts/modals/add-episode-file.pug
 			include parts/modals/add-episode-youtube.pug
+			include parts/modals/edit-episode.pug
+			include parts/modals/remove-episode.pug
 
 block scripts
 	script(src='/js/episodes.js')

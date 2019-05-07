@@ -12,8 +12,10 @@ var app = new Vue({
 			description: '',
 			file: null
 		},
+		editEpisode: null,
 		loading: {
 			episodes: false,
+			editEpisodeModal: false,
 			ytModal: false
 		}
 	},
@@ -27,6 +29,27 @@ var app = new Vue({
 	},
 
 	methods: {
+		setEditEpisode: function(episode) {
+			episode.date = moment(episode.date).format('DD/MM/YYYY HH:mm');
+			this.editEpisode = episode;
+
+			if (episode.source == 'yt') {
+				this.loading.editEpisodeModal = true;
+
+				// Make a request for a user with a given ID
+				axios
+				.get('/api/youtube/' + episode.fileId)
+				.then(function (response) {
+					app.ytVideo = response.data;
+					app.loading.editEpisodeModal = false;
+				})
+				.catch(function (error) {
+					app.makeToast('Error', 'Failed to load episode information!', 'danger');
+					app.loading.editEpisodeModal = false;
+				});
+			}
+		},
+
 		loadEpisodes: function() {
 			this.loading.episodes = true;
 
