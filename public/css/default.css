@@ -1,0 +1,20 @@
+.b-toast {
+	box-shadow: 0px 0px 4px -1px #000;
+}
+
+.b-toast .toast {
+	padding: 5px 10px;
+}
+
+.fa-clock-o:before {
+    content: "\f017" !important;
+}
+
+.loader {
+	text-align: center;
+    padding: 40px 0;
+}
+
+[v-cloak] {
+	display: none;
+}
