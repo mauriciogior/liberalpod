@@ -1,0 +1,46 @@
+extends parts/layout.pug
+block title
+	| Episodes
+
+block content
+	link(rel='stylesheet', href='/css/dashboard.css')
+	link(rel='stylesheet', href='/css/episodes.css')
+
+	body
+		include parts/top-nav.pug
+
+		#app.container-fluid
+			.row
+				include parts/left-nav.pug
+
+				main.col-md-9.ml-sm-auto.col-lg-10.pt-3.px-4(role='main', v-cloak)
+					.d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+						h1.h2 Episode list
+						.btn-toolbar.mb-2.mb-md-0.dropdown
+							button.btn.btn-sm.btn-outline-secondary.dropdown-toggle(data-toggle='dropdown')
+								span(data-feather='calendar')
+								| Add episode
+
+							.dropdown-menu.dropdown-menu-right
+								b-button.dropdown-item.btn.btn-primary(v-b-modal.modal-add-yt) From YouTube
+								b-button.dropdown-item.btn.btn-primary(v-b-modal.modal-add-file) Upload file
+					.loader(v-if='loading.episodes')
+						span.fas.fa-circle-notch.fa-spin
+						| Loading episodes
+
+					.table-responsive(v-else)
+						table.table.table-striped.table-sm
+							thead
+								tr
+									th Title
+									th Date
+							tbody
+								tr(v-for='episode in episodes')
+									td(v-text='episode.title')
+									td(v-text='episode.date')
+
+			include parts/modals/add-episode-file.pug
+			include parts/modals/add-episode-youtube.pug
+
+block scripts
+	script(src='/js/episodes.js')

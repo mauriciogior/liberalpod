@@ -1,0 +1,18 @@
+b-modal#modal-add-yt(title='Add from YouTube', ok-title='Add episode')
+	.loader(v-if='loading.ytModal', v-cloak)
+		span.fas.fa-circle-notch.fa-spin
+		| Loading videos
+
+	ul.video-list(v-else)
+		li(v-for='(_ytVideo, index) in ytVideos', @click='ytVideo = _ytVideo')
+			img(v-if='_ytVideo.thumbnail', :src='_ytVideo.thumbnail.url', :class='{\'active\':ytVideo.id == _ytVideo.id}')
+			p(v-text='_ytVideo.title')
+	b-form
+		b-form-group(label='Video ID:', label-for='yt-form-video-id')
+			b-form-input#yt-form-video-id(v-model='ytVideo.id', type='text', placeholder, required, disabled)
+		b-form-group(label='Date:', label-for='yt-form-date', description='Your episodes are ordered based on this field.')
+			date-picker(v-model='ytVideo.date', :config='{ format: \'DD/MM/YYYY HH:mm\', useCurrent: true }')
+		b-form-group(label='Title:', label-for='yt-form-title')
+			b-form-input#yt-form-title(v-model='ytVideo.title', type='text', placeholder='Type here', required)
+		b-form-group(label='Description:', label-for='yt-form-description')
+			b-form-textarea#yt-form-description(v-model='ytVideo.description', placeholder='Type here', rows='3', max-rows='6')

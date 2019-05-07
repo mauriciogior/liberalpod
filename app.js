@@ -1,35 +1,33 @@
 // Config env variables
 require('dotenv').config()
 
-const functions = require('firebase-functions')
-const path = require('path')
-const Koa = require('koa')
-const serve = require('koa-static')
-const views = require('koa-views')
-const logger = require('koa-logger')
-const router = require('koa-router')()
+const koa = require('koa')
+const koaServe = require('koa-static')
+const koaLogger = require('koa-logger')
+const koaRouter = require('koa-router')()
 const koaBody = require('koa-body')
-const app = new Koa()
+const koaViews = require('koa-views');
+const app = new koa()
 
-app.use(logger())
+app.use(koaLogger())
 app.use(koaBody({
 	multipart: true,
 	formLimit: '200mb'
 }))
-app.use(views('views', { extension: 'swig' }))
-app.use(serve('public'))
+app.use(koaViews(__dirname + '/views', { extension: 'pug' }));
+app.use(koaServe('public'))
 
 // Set our auth
-require('./internal/auth.js')(router)
+require('./internal/auth.js')(koaRouter)
 
 // Set our routes
-require('./routes/router.js')(router)
+require('./routes/router.js')(koaRouter)
 
-router.get('/', async function(ctx) {
+koaRouter.get('/', async function(ctx) {
 	await ctx.redirect('/login')
 })
 
-app.use(router.routes())
+app.use(koaRouter.routes())
 
 // Run server
 const server = app.listen(process.env.PORT, () => {

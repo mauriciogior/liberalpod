@@ -1,0 +1,10 @@
+b-modal#modal-add-file(title='Upload file', v-cloak, ok-title='Add episode', @ok='submitFile')
+	b-form
+		b-form-group(label='File:', description='Only .mp3 files are allowed. Max size of 200mb.')
+			b-form-file(v-model='episode.file', :state='Boolean(episode.file)', placeholder='Choose a file...', drop-placeholder='Drop file here...', accept='.mp3')
+		b-form-group(label='Date:', description='Your episodes are ordered based on this field.')
+			date-picker(v-model='episode.date', :config='{ format: \'DD/MM/YYYY HH:mm\', useCurrent: true }')
+		b-form-group(label='Title:', label-for='file-form-title')
+			b-form-input#file-form-title(v-model='episode.title', type='text', placeholder='Type here', required)
+		b-form-group(label='Description:', label-for='file-form-description')
+			b-form-textarea#file-form-description(v-model='episode.description', placeholder='Type here', rows='3', max-rows='6')
